@@ -110,7 +110,18 @@ jobs:
         run: python -m tests.security.run_adversarial_evaluation
 
       - name: pip-audit
-        run: pip-audit
+        # GHSA-78g4-xqwv-q3g8 (pillow 12.3.0, fixed in 13.0.0) cannot be fixed yet:
+        # pillow is only a transitive dependency of fastembed 0.9.0, which pins
+        # pillow<13, and the backend uses fastembed's text embeddings only. The
+        # advisory text could not be retrieved when this was added, so reachability
+        # has not been assessed. The exemption expires on 2026-11-07: re-check for a
+        # fastembed release that allows pillow 13, then drop it.
+        run: |
+          if [ "$(date -u +%F)" \> "2026-11-07" ]; then
+            echo "::error::The pip-audit exemption for GHSA-78g4-xqwv-q3g8 expired on 2026-11-07; re-check and renew or remove it."
+            exit 1
+          fi
+          pip-audit --ignore-vuln GHSA-78g4-xqwv-q3g8
 
   frontend:
     name: Frontend (lint, build, tests)
