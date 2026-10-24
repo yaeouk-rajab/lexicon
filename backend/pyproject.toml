@@ -13,7 +13,7 @@ dependencies = [
     "psycopg[binary]>=3.2",
     "redis>=5.0",
     "pgvector>=0.3",
-    "fastembed>=0.4",
+    "fastembed>=0.9.1",
     "anthropic>=1.0",
     "python-multipart>=0.0.12",
     # ADR-0005 — instance-level authentication (real login + signed session
