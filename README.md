@@ -41,6 +41,14 @@ one exception — it never calls an LLM provider, so it is measured for real
 [`docs/CASE-STUDY.md`](docs/CASE-STUDY.md) for the full story of why this
 boundary exists and what stayed real despite it.
 
+## Screenshots
+
+![Corpus list](docs/screenshots/corpora.png)
+
+![Cited answer and a refusal](docs/screenshots/grounded-answer.png)
+
+_These images are illustrative mockups rendered from this repository's documented screens and API shapes, not captures of a running build. Regenerate or replace them with real captures once the app is running._
+
 ## What this demonstrates
 
 - **Discovery & Planning (deep):** the "why RAG, not fine-tuning or search
