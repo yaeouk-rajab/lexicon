@@ -9,6 +9,11 @@ COPY alembic.ini ./
 
 RUN pip install --no-cache-dir .
 
+# fastembed 0.9.0 pins pillow<13, but pillow 12.x has known vulnerabilities fixed
+# only in 13.0.0 and the backend uses fastembed's text embeddings only. pip warns
+# about the pin and exits 0. Drop this once fastembed allows pillow 13.
+RUN pip install --no-cache-dir 'pillow>=13'
+
 EXPOSE 8000
 
 # Migrations always run as the admin/owner role (DATABASE_ADMIN_URL), which

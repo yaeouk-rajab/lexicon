@@ -76,6 +76,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install '.[dev]'
+          # fastembed 0.9.0 pins pillow<13, but pillow 12.x has 36 known
+          # vulnerabilities fixed only in 13.0.0 (pip-audit). The backend uses
+          # fastembed's text embeddings only, so install pillow 13 over it; pip
+          # prints a resolver warning about the pin and exits 0. Drop this once
+          # fastembed allows pillow 13 (also in Dockerfile and Dockerfile.prod).
+          pip install 'pillow>=13'
 
       - name: ruff
         run: ruff check .
@@ -110,18 +116,7 @@ jobs:
         run: python -m tests.security.run_adversarial_evaluation
 
       - name: pip-audit
-        # GHSA-78g4-xqwv-q3g8 (pillow 12.3.0, fixed in 13.0.0) cannot be fixed yet:
-        # pillow is only a transitive dependency of fastembed 0.9.0, which pins
-        # pillow<13, and the backend uses fastembed's text embeddings only. The
-        # advisory text could not be retrieved when this was added, so reachability
-        # has not been assessed. The exemption expires on 2026-11-07: re-check for a
-        # fastembed release that allows pillow 13, then drop it.
-        run: |
-          if [ "$(date -u +%F)" \> "2026-11-07" ]; then
-            echo "::error::The pip-audit exemption for GHSA-78g4-xqwv-q3g8 expired on 2026-11-07; re-check and renew or remove it."
-            exit 1
-          fi
-          pip-audit --ignore-vuln GHSA-78g4-xqwv-q3g8
+        run: pip-audit
 
   frontend:
     name: Frontend (lint, build, tests)
