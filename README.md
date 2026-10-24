@@ -43,11 +43,17 @@ boundary exists and what stayed real despite it.
 
 ## Screenshots
 
+![Sign in](docs/screenshots/sign-in.png)
+
 ![Corpus list](docs/screenshots/corpora.png)
 
-![Cited answer and a refusal](docs/screenshots/grounded-answer.png)
+![Corpus page with upload and question form](docs/screenshots/corpus-page.png)
 
-_These images are illustrative mockups rendered from this repository's documented screens and API shapes, not captures of a running build. Regenerate or replace them with real captures once the app is running._
+_The three images above are real captures from a local run (FastAPI backend, Next.js dev server, PostgreSQL with pgvector, Redis), driven with Playwright._
+
+![Cited answer and a refusal (illustrative mockup)](docs/screenshots/grounded-answer.png)
+
+_This last image is an **illustrative mockup**, not a capture. Ingestion and querying need the `BAAI/bge-small-en-v1.5` embedding weights, which could not be downloaded in the sandbox used for the real captures (outbound access to Hugging Face is blocked there), so an upload stayed at 0 chunks and a question never completed. Replace it with a real capture from a machine that can fetch the model._
 
 ## What this demonstrates
 
