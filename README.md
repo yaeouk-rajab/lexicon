@@ -41,6 +41,20 @@ one exception — it never calls an LLM provider, so it is measured for real
 [`docs/CASE-STUDY.md`](docs/CASE-STUDY.md) for the full story of why this
 boundary exists and what stayed real despite it.
 
+## Screenshots
+
+![Sign in](docs/screenshots/sign-in.png)
+
+![Corpus list](docs/screenshots/corpora.png)
+
+![Corpus page with upload and question form](docs/screenshots/corpus-page.png)
+
+_The three images above are real captures from a local run (FastAPI backend, Next.js dev server, PostgreSQL with pgvector, Redis), driven with Playwright._
+
+![Cited answer and a refusal (illustrative mockup)](docs/screenshots/grounded-answer.png)
+
+_This last image is an **illustrative mockup**, not a capture. Ingestion and querying need the `BAAI/bge-small-en-v1.5` embedding weights, which could not be downloaded in the sandbox used for the real captures (outbound access to Hugging Face is blocked there), so an upload stayed at 0 chunks and a question never completed. Replace it with a real capture from a machine that can fetch the model._
+
 ## What this demonstrates
 
 - **Discovery & Planning (deep):** the "why RAG, not fine-tuning or search
